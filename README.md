@@ -1,3 +1,2 @@
 # CSE271
-
-testing git integration in eclipse
+Repository for CSE271 code
