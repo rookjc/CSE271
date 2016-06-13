@@ -1,4 +1,4 @@
-
+@SuppressWarnings(value = {"unused"})
 public class Unused {
 	private static boolean isInteger(String symbol) {
 		try {

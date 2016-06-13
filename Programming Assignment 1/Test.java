@@ -1,3 +1,4 @@
+@SuppressWarnings(value = {"unused"})
 public class Test {
 
 	public static void main(String[] args) {
