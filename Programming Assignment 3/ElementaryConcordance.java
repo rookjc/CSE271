@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A basic class which implements a single static method,
+ * A basic class containing a single static method,
  * generateConcordanceFromFile(), which generates a map from words in a
  * specified file to the set of line numbers they appear on.
  * 
@@ -72,7 +72,7 @@ public class ElementaryConcordance {
 			return result;
 			
 		} catch (IOException e) {
-			// If any IOException was thrown, return an empty concordance.
+			// If any IOException is thrown, return an empty concordance.
 			return new HashMap<>();
 		}
 		

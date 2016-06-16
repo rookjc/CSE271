@@ -48,9 +48,10 @@ public class TextExaminer implements TextAnalyzer {
 				if (trimmedLine.length() > 0)
 					wordCount += trimmedLine.split("\\s+").length;
 				
-				// Increment charCount by the length of the line + 1, to
-				// account for a newline character the BufferedReader discards
-				charCount += line.length() + 1;
+				// Increment charCount by the length of the line, plus the
+				// length of the system's line separator (which is discarded by
+				// the BufferedReader's readLine method)
+				charCount += line.length() + System.lineSeparator().length();
 				// Increment lineCount with every iteration of the loop also
 				lineCount++;
 			}
@@ -65,6 +66,7 @@ public class TextExaminer implements TextAnalyzer {
 			throw new FileNotFoundException("File '" + fileName + "' cannot be"
 					+ " opened for reading.");
 		}
+		
 	}
 
 }
