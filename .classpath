@@ -4,6 +4,8 @@
 	<classpathentry kind="src" path="Programming Assignment 1"/>
 	<classpathentry kind="src" path="Programming Assignment 2"/>
 	<classpathentry kind="src" path="Programming Assignment 3"/>
+	<classpathentry kind="src" path="Programming Assignment 4"/>
+	<classpathentry kind="src" path="Final Project"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -9,7 +9,7 @@ import java.util.Stack;
  * @author Jayson Rook
  * @version 1.0
  */
-public class ExpressionEvaluator {
+public class ExpressionEvaluator1 {
 	
 	/**
 	 * Computes an integer value from a list of strings, representing operators

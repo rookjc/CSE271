@@ -8,7 +8,7 @@ public class tester {
 		List<String> l = L("251***");
 		l.add(0, "-1");
 		System.out.println(l);
-		System.out.println(ExpressionEvaluator.evaluate(l));
+		System.out.println(ExpressionEvaluator1.evaluate(l));
 	}
 	
 	public static List<String> L(String s) {
