@@ -1,135 +1,79 @@
 import java.util.List;
 import java.util.Stack;
 
+/**
+ * A class implementing the static method process, which converts a reverse
+ * Polish notation expression into a tree to demonstrate traversal methods.
+ * 
+ * @author Jayson Rook
+ * @version 1.0
+ */
 public class ExpressionEvaluator {
-	static interface BinaryExpressionTree {
-		public void printRPN();
-		public void printInfix();
-		public int evaluate();
-	}
-	
-	static class ExpressionTreeBranch implements BinaryExpressionTree {
-		private String operator;
-		private BinaryExpressionTree left;
-		private BinaryExpressionTree right;
-		
-		public ExpressionTreeBranch(String operator) {
-			this.operator = operator;
-		}
-		
-		public BinaryExpressionTree getLeft() {
-			return left;
-		}
-		
-		public void setLeft(BinaryExpressionTree left) {
-			this.left = left;
-		}
-		
-		public BinaryExpressionTree getRight() {
-			return right;
-		}
-		
-		public void setRight(BinaryExpressionTree right) {
-			this.right = right;
-		}
-		
-		public void printRPN() {
-			getLeft().printRPN();
-			getRight().printRPN();
-			System.out.print(operator + " ");
-		}
 
-		public void printInfix() {
-			System.out.print("(");
-			getLeft().printInfix();
-			System.out.print(" " + operator + " ");
-			getRight().printInfix();
-			System.out.print(")");
-		}
-
-		public int evaluate() {
-			int lhs = getLeft().evaluate();
-			int rhs = getRight().evaluate();
-			switch (operator) {
-			case "+":
-				return lhs + rhs;
-				// Break statements omitted, since returns end the method entirely
-			case "-":
-				return lhs - rhs;
-			case "*":
-				return lhs * rhs;
-			case "/":
-				// Use integer division, since this class is designed for integer
-				// expressions only.
-				return lhs / rhs;
-			case "%":
-				return lhs % rhs;
-			default:
-				// This code should never be reached, since cases exist for all
-				// symbols classified as operators.
-				return 0;
-			}
-		}
-		
-	}
-	
-	static class ExpressionTreeLeaf implements BinaryExpressionTree {
-		private int value;
-		
-		public ExpressionTreeLeaf (String symbol) {
-			value = Integer.valueOf(symbol);
-		}
-
-		public void printRPN() {
-			System.out.print(value + " ");
-		}
-
-		public void printInfix() {
-			System.out.print(value);
-		}
-
-		public int evaluate() {
-			return value;
-		}
-		
-	}
-	
-	
-	
+	/**
+	 * Takes a list of strings representing a syntactically correct integer
+	 * expression in reverse Polish notation, and generates a tree
+	 * representation of it. This tree is then used to print out the original
+	 * reverse Polish notation, the infix notation, and the computed value of
+	 * the expression.
+	 * 
+	 * @param expr
+	 *            the expression in reverse Polish notations
+	 */
 	public static void process(List<String> expr) {
 		BinaryExpressionTree tree = generateTree(expr);
-		tree.printRPN();
-		System.out.println();
-		tree.printInfix();
-		System.out.println();
-		System.out.println(tree.evaluate());
+
+		printRPN(tree);
+
+		printInfix(tree);
+
+		printValue(tree);
 	}
-	
+
+	// Helper method for generating the tree from the list. Converts the list
+	// to a stack to utilize another method for generation.
 	private static BinaryExpressionTree generateTree(List<String> expr) {
 		Stack<String> s = new Stack<>();
 		for (String symbol : expr)
 			s.push(symbol);
 		return generateTree(s);
 	}
-	
+
+	// Helper method for generating the tree from a stack.
 	private static BinaryExpressionTree generateTree(Stack<String> s) {
 		String symbol = s.pop();
 		if (isOperator(symbol)) {
+			// Create a branch for the operator, calling this method recursively
+			// to obtain the left and right subtrees.
 			ExpressionTreeBranch tree = new ExpressionTreeBranch(symbol);
 			tree.setRight(generateTree(s));
 			tree.setLeft(generateTree(s));
 			return tree;
 		}
+		// Otherwise, create a leaf node, which has only an integer value and
+		// never any subtrees.
 		return new ExpressionTreeLeaf(symbol);
 	}
-	
-	/**
-	 * Determine whether a string represents one of five operators:
-	 * +, -, *, /, or %.
-	 * 
-	 * @param symbol the string to check
-	 * @return true iff the string represents one of the operators
-	 */
+
+	// Helper method for printing reverse Polish notation from the tree
+	private static void printRPN(BinaryExpressionTree tree) {
+		tree.printRPN();
+		System.out.println();
+	}
+
+	// Helper method for printing infix notation from the tree
+	private static void printInfix(BinaryExpressionTree tree) {
+		tree.printInfix();
+		System.out.println();
+	}
+
+	// Helper method for computing and printing the value of the tree
+	private static void printValue(BinaryExpressionTree tree) {
+		System.out.println(tree.evaluate());
+	}
+
+	// Determine whether a string represents one of five operators: +, -, *, /,
+	// or %.
 	private static boolean isOperator(String symbol) {
 		switch (symbol) {
 		case "+":
@@ -138,9 +82,10 @@ public class ExpressionEvaluator {
 		case "/":
 		case "%":
 			return true;
-			// Break statement omitted, since return ends the method entirely
+		// Break statement omitted, since return ends the method entirely
 		default:
 			return false;
 		}
 	}
+
 }
